@@ -1,1 +1,5 @@
 GitPython
+langchain
+langchain-google-genai
+dotenv
+
