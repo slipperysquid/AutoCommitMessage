@@ -10,31 +10,42 @@ from dotenv import load_dotenv, find_dotenv
 
 class CommitGenerator:
     
-    def __init__(self):
-        try:
-            self.repo = Repo('.', search_parent_directories=True)
-        except Exception as e:
-            print(f"Error while initializing repo: {e}")
-            exit()
+    def __init__(self,repo=None,llm=None):
+        
+        if repo:
+            self.repo = repo
+        else:
+            try:
+                self.repo = Repo('.', search_parent_directories=True)
+            except Exception as e:
+                print(f"Error while initializing repo: {e}")
+                exit()
+        
+        if llm:
+            self.llm = llm
+        else:
             
-        self.llm = LLM = ChatGoogleGenerativeAIWithDelay(
-            model="gemini-2.5-flash",
-            temperature=0,
-            max_tokens=None,
-            timeout=None,
-            max_retries=2,
-        )
+            self.llm = LLM = ChatGoogleGenerativeAIWithDelay(
+                model="gemini-2.5-flash",
+                temperature=0,
+                max_tokens=None,
+                timeout=None,
+                max_retries=2,
+            )
 
     
     def get_differences(self):
         
-        return subprocess.run(["git","diff","--staged"], capture_output=True, text=True).stdout
+        return self.repo.git.diff('--staged')
     
     def generate(self):
         
         prompt = ChatPromptTemplate.from_template(PROMPT)
         
         all_diffs = self.get_differences()
+        
+        if not all_diffs:
+            return "No staged changes to commit."
         
         invoke_parameters = {
             "information": all_diffs
