@@ -18,9 +18,9 @@ index e69de29..a3d4d2d 100644
 def test_get_difference():
     mock_repo = MagicMock()
     mock_repo.git.diff.return_value = FAKE_GIT_DIFF
+    mock_llm = MagicMock()
     
-    
-    gen = CommitGenerator(repo=mock_repo)
+    gen = CommitGenerator(repo=mock_repo,llm=mock_llm)
     differences = gen.get_differences()
     
     mock_repo.git.diff.assert_called_once_with("--staged")
@@ -30,8 +30,9 @@ def test_get_difference():
 def test_no_staged_changes():
     mock_repo = MagicMock()
     mock_repo.git.diff.return_value = ""
+    mock_llm = MagicMock()
 
-    gen = CommitGenerator(repo=mock_repo)
+    gen = CommitGenerator(repo=mock_repo, llm=mock_llm)
     message = gen.generate()
     
     assert message == "No staged changes to commit."

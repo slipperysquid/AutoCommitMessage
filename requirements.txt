@@ -1,6 +1,7 @@
 GitPython
 langchain
 langchain-google-genai
+langsmith
 dotenv
 pytest 
 pytest-mock
