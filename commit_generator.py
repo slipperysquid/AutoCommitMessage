@@ -32,6 +32,9 @@ class CommitGenerator:
                 timeout=None,
                 max_retries=2,
             )
+            
+        prompt = ChatPromptTemplate.from_template(PROMPT)
+        self.generation_chain = prompt | self.llm | StrOutputParser()
 
     
     def get_differences(self):
@@ -40,22 +43,16 @@ class CommitGenerator:
     
     def generate(self):
         
-        prompt = ChatPromptTemplate.from_template(PROMPT)
-        
         all_diffs = self.get_differences()
         
         if not all_diffs:
             return "No staged changes to commit."
         
         invoke_parameters = {
-            "information": all_diffs
+            "input": all_diffs
         }
 
-        
-        print(invoke_parameters["information"])
-        generation_chain = prompt | self.llm | StrOutputParser()
-        
-        commit_message = generation_chain.invoke(invoke_parameters)
+        commit_message = self.generation_chain.invoke(invoke_parameters)
         
         return commit_message
         

@@ -44,7 +44,7 @@ def test_generate_commit_with_real_staged_changes(test_repo):
     
     assert commit_message is not None
     assert len(commit_message) > 10 
-    valid_types = ["feat:", "fix:", "chore:", "refactor:", "docs:", "style:", "test:"]
+    valid_types = ["feat", "fix", "chore", "refactor", "docs", "style", "test"]
     assert any(commit_message.startswith(t) for t in valid_types)
 
     diff_content = test_repo.git.diff('--staged')

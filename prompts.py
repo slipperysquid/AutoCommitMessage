@@ -84,10 +84,10 @@ refactor(database): optimize user query performance
 The GetUsers function was refactored to use a more efficient SQL join, reducing query time by an average of 40%. No functional changes were made to the API output.
 </Example 3: A Refactor>
 
-<Examples>
+</Examples>
 
 <diff-info>
-{information}
-<diff-info>
+{input}
+</diff-info>
 
 """
