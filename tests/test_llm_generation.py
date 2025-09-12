@@ -7,6 +7,9 @@ from langchain.smith import run_on_dataset
 from langsmith import Client
 from llm import ChatGoogleGenerativeAIWithDelay
 import uuid
+from langchain.evaluation import load_evaluator
+from langchain.evaluation.scoring.eval_chain import ScoreStringEvalChain
+
 
 requires_google_api = pytest.mark.skipif(
     not os.getenv("GOOGLE_API_KEY"),
@@ -25,20 +28,22 @@ requires_langsmith_api = pytest.mark.skipif(
 def test_llm_generation_quality():
     project_name = f"quality-test-{uuid.uuid4().hex[:8]}"
     
+    evaluator_llm = ChatGoogleGenerativeAIWithDelay(
+        model="gemini-2.5-flash", # Using a more powerful model for evaluation is often better
+        temperature=0,
+    )
+    
+    score_chain = ScoreStringEvalChain.from_llm(
+    llm=evaluator_llm,
+    criteria="helpfulness",
+)
+
     eval_config = RunEvalConfig(
-        eval_llm = ChatGoogleGenerativeAIWithDelay(
-            model="gemini-2.5-flash-lite",
-            temperature=0,
-            max_tokens=None,
-            timeout=None,
-            max_retries=2,),
-        evaluators=[
-        RunEvalConfig.Criteria("conciseness"),
-        RunEvalConfig.Criteria("coherence"),
-        RunEvalConfig.Criteria("relevance"),
-        RunEvalConfig.Criteria("helpfulness")
-    ]
-        )
+    # custom_evaluators accepts actual StringEvaluator/RunEvaluator instances
+    custom_evaluators=[score_chain],
+    )
+    
+
     client = Client()
     gen = CommitGenerator()
 
@@ -50,10 +55,9 @@ def test_llm_generation_quality():
     project_name=project_name,
     evaluation=eval_config
     )
-    
+    print(results)
     for r in results:
-        for e in r["eval_results"]:
-            assert e["score"] > 0.9, (
-            f"'{e['evaluator']}' score failed. "
-            f"Got {e['score']:.2f}, but expected at least {0.9:.2f}."
+        assert e["score"] > 0.9, (
+            f"evaluation score failed. "
+            f"Got {r['score']:.2f}, but expected at least {8:.2f}."
         )

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autocommitmessage"
+version = "0.1.0"
+description = "A tool to automatically generate git commit messages using an LLM."
+dependencies = [
+    "GitPython>=3.1.45",
+    "langchain>=0.3.27",
+    "langchain-google-genai>=2.1.10",
+    "langsmith>=0.4.27",
+    "python-dotenv>=0.9.9", 
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-mock>=3.15.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+markers = [
+    "e2e: marks tests as end-to-end tests (makes real API calls)",
+    "llm: marks tests as LLM tests",
+]
