@@ -58,12 +58,13 @@ class CommitGenerator:
         
         
 
-
-
-
-if __name__ == '__main__':
+def main():
     load_dotenv(find_dotenv())
     gen = CommitGenerator()
 
     print(gen.generate())
+
+
+if __name__ == '__main__':
+    main()
     

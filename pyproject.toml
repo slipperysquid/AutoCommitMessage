@@ -13,6 +13,8 @@ dependencies = [
     "langsmith>=0.4.27",
     "python-dotenv>=0.9.9", 
 ]
+[project.scripts]
+autocommitmessage = "commit_generator:main"
 
 [project.optional-dependencies]
 dev = [

@@ -2,6 +2,7 @@ pyproject.toml
 src/autocommitmessage.egg-info/PKG-INFO
 src/autocommitmessage.egg-info/SOURCES.txt
 src/autocommitmessage.egg-info/dependency_links.txt
+src/autocommitmessage.egg-info/entry_points.txt
 src/autocommitmessage.egg-info/requires.txt
 src/autocommitmessage.egg-info/top_level.txt
 tests/test_commit_generator.py
