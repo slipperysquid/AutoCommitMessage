@@ -56,8 +56,15 @@ def test_llm_generation_quality():
     evaluation=eval_config
     )
     print(results)
-    for r in results:
-        assert e["score"] > 0.9, (
-            f"evaluation score failed. "
-            f"Got {r['score']:.2f}, but expected at least {8:.2f}."
+    for run_data in results['results'].values():
+        # The score is inside the first item of the 'feedback' list.
+        # The 'EvaluationResult' object has a .score attribute.
+        score = run_data['feedback'][0].score
+        run_id = run_data['run_id']
+
+        # Based on your output, the scores are on a 1-10 scale (e.g., 9, 10).
+        # Your assertion should reflect this scale.
+        assert score >= 9, (
+            f"Evaluation for run {run_id} failed. "
+            f"Got score {score}, but expected at least 9."
         )
