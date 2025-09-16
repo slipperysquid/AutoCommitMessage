@@ -1,4 +1,5 @@
 import subprocess
+import os
 from git import Repo
 from llm import ChatGoogleGenerativeAIWithDelay
 from langchain_core.output_parsers import StrOutputParser
@@ -60,8 +61,16 @@ class CommitGenerator:
 
 def main():
     load_dotenv(find_dotenv())
+    
+    if not os.getenv("GOOGLE_API_KEY"):
+        print("Error: GOOGLE_API_KEY not found.")
+        print("Please create a .env file in your repository's root directory and add your key:")
+        print('GOOGLE_API_KEY="your_google_api_key_here"')
+        exit()
+        
     gen = CommitGenerator()
-
+    
+    print("--- Generating Commit Message ---")
     print(gen.generate())
 
 

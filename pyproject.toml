@@ -5,14 +5,30 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "autocommitmessage"
 version = "0.1.0"
+authors = [
+  { name="SLPRYSQUID", email="coleseto123@gmail.com" },
+]
 description = "A tool to automatically generate git commit messages using an LLM."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 dependencies = [
     "GitPython>=3.1.45",
     "langchain>=0.3.27",
     "langchain-google-genai>=2.1.10",
     "langsmith>=0.4.27",
-    "python-dotenv>=0.9.9", 
+    "python-dotenv>=0.9.9",
 ]
+
+[project.urls]
+"Homepage" = "https://github.com/your-username/autocommitmessage" # Add a link to your repo
+"Bug Tracker" = "https://github.com/your-username/autocommitmessage/issues" # And issues page
+
 [project.scripts]
 autocommitmessage = "commit_generator:main"
 
