@@ -1,11 +1,11 @@
 #Tests the LLMs generation quality using langsmith
 import pytest
 import os
-from commit_generator import CommitGenerator
+from autocommitmessage.commit_generator import CommitGenerator
 from langchain.smith import RunEvalConfig
 from langchain.smith import run_on_dataset
 from langsmith import Client
-from llm import ChatGoogleGenerativeAIWithDelay
+from autocommitmessage.llm import ChatGoogleGenerativeAIWithDelay
 import uuid
 from langchain.evaluation import load_evaluator
 from langchain.evaluation.scoring.eval_chain import ScoreStringEvalChain

@@ -1,10 +1,10 @@
 import subprocess
 import os
 from git import Repo
-from llm import ChatGoogleGenerativeAIWithDelay
+from .llm import ChatGoogleGenerativeAIWithDelay
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from prompts import PROMPT
+from .prompts import PROMPT
 import json
 from dotenv import load_dotenv, find_dotenv
 

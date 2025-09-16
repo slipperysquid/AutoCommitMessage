@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from commit_generator import CommitGenerator
+from autocommitmessage.commit_generator import CommitGenerator
 
 FAKE_GIT_DIFF = """
 diff --git a/main.py b/main.py

@@ -2,7 +2,7 @@ import pytest
 from git import Repo
 import os
 from langchain_core.messages import AIMessage
-from commit_generator import CommitGenerator
+from autocommitmessage.commit_generator import CommitGenerator
 from dotenv import load_dotenv, find_dotenv
 
 
