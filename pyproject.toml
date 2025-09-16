@@ -26,8 +26,8 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/your-username/autocommitmessage" # Add a link to your repo
-"Bug Tracker" = "https://github.com/your-username/autocommitmessage/issues" # And issues page
+"Homepage" = "https://github.com/slipperysquid/AutoCommitMessage" 
+"Bug Tracker" = "https://github.com/slipperysquid/AutoCommitMessage/issues"
 
 [project.scripts]
 autocommitmessage = "commit_generator:main"
