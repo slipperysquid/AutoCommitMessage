@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "autocommitmessage"
-version = "0.1.1"
+version = "0.1.2"
 authors = [
   { name="SLPRYSQUID", email="coleseto123@gmail.com" },
 ]
@@ -38,8 +38,9 @@ dev = [
     "pytest-mock>=3.15.0",
 ]
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.setuptools]
+py-modules = ["commit_generator"]
+package-dir = {"" = "src"}
 
 [tool.pytest.ini_options]
 markers = [
