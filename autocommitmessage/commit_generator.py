@@ -19,8 +19,12 @@ class CommitGenerator:
             try:
                 self.repo = Repo('.', search_parent_directories=True)
             except Exception as e:
-                print(f"Error while initializing repo: {e}")
+                print(f"Error: Not a git repository. {e}")
                 exit()
+        
+    
+        dotenv_path = os.path.join(self.repo.working_tree_dir, '.env')
+        load_dotenv(dotenv_path=dotenv_path)
         
         if llm:
             self.llm = llm
@@ -60,16 +64,15 @@ class CommitGenerator:
         
 
 def main():
-    load_dotenv(find_dotenv())
+        
+    gen = CommitGenerator()
     
     if not os.getenv("GOOGLE_API_KEY"):
         print("Error: GOOGLE_API_KEY not found.")
         print("Please create a .env file in your repository's root directory and add your key:")
         print('GOOGLE_API_KEY="your_google_api_key_here"')
         exit()
-        
-    gen = CommitGenerator()
-    
+
     print("--- Generating Commit Message ---")
     print(gen.generate())
 
